@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Tracking in Adapt</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Tracking in Adapt</h2>
+					<p><small>Matt Leathes<br>Senior Technical Consultant, Kineo Ltd</small></p>
+				</section>
+				<section>
+					<h2>A quick bit about me...</h2>
+					<aside class="notes">Worked in web development since 2000<br>e-elearning since late 90s<br>Kineo since 2008<br>partly involved in Adapt since inception</aside>
+				</section>
+				<section>
+					<h2>Tracking in Adapt</h2>
+					<p class="fragment">Currently provided by the 'spoor' extension</p>
+					<figure class="fragment">
+						<img src="spoor.png"/>
+						<figcaption>In case you were wondering about the name...!</figcaption>
+					</figure>
+					<p class="fragment">With support from the 'bookmarking' extension.</p>
+					<p class="fragment">Currently supports SCORM 1.2<br><small>(with unofficial support for SCORM 2004).</small></p>
+					<aside class="notes">Explain that will do quick overview of SCORM followed by how it all works in Adapt</aside>
+				</section>
+				<section>
+					<h2>SCORM&trade; - a quick overview</h2>
+					<p class="fragment"><b><u>S</u></b>harable <b><u>C</u></b>ontent <b><u>O</u></b>bject <b><u>R</u></b>eference <b><u>M</u></b>odel</p> 
+					<h3 class="fragment">Great, but what is it?</h3>
+					<p class="fragment">It's a standard that defines:</p>
+					<p class="fragment">The <b><u>C</u></b>ontent <b><u>A</u></b>ggregation <b><u>M</u></b>odel<br><small class="fragment">(How to package your content)</small></p>  
+					<p class="fragment">The <b><u>R</u></b>un-<b><u>T</u></b>ime <b><u>E</u></b>nvironment<br><small class="fragment">(How to get your content and the LMS to talk to each other)</small></p>
+					<aside class="notes">Or; I quickly summarise more than 320 pages of documentation and terminology for you...</aside>
+				</section>
+				<section>
+					<h2>SCORM&trade; - packaging</h2>
+					<p class="fragment">It's all about the manifest file AKA <code>imsmanifest.xml</code></p>
+					<aside class="notes">Where it's found<br>Key parts<br>New format</aside>
+				</section>
+				<section>
+					<h2>SCORM&trade; - packaging</h2>
+					<p class="fragment">The <b><u>P</u></b>ackage <b><u>I</u></b>nterchange <b><u>F</u></b>ile<br></p> 
+					<aside class="notes">zipping SCOs correctly</aside>
+				</section>
+				<section>
+					<h2>SCORM&trade; - the API</h2>
+					<h3 class="fragment">What is it? Where do you find it?</h3> 
+					<aside class="notes">talk through find API function, demo on SCORM Cloud. API in SC is at window.opener.parent.API</aside>
+				</section>
+				<section>
+					<h2>SCORM&trade; - API functions</h2>
+					<p class="fragment">The API consists of the following functions:</p> 
+					<ul>
+						<li class="fragment"><code>LMSInitialize("")</code></li>
+						<li class="fragment"><code>LMSGetValue("name")</code></li>
+						<li class="fragment"><code>LMSSetValue("name", "value")</code></li>
+						<li class="fragment"><code>LMSCommit("")</code></li>
+						<li class="fragment"><code>LMSFinish("")</code></li>
+						<li class="fragment"><code>LMSGetLastError()</code></li>
+						<li class="fragment"><code>LMSGetErrorString("errorcode")</code></li> 
+						<li class="fragment"><code>LMSGetDiagnostic ("errorcode")</code></li> 
+					</ul>
+					<aside class="notes">demo on SCORM Cloud, maybe examples of trying to get cmi.core.student_name and set cmi.comments?<br>explain that most calls return "true" or "false" to indicate success or failure</aside>
+				</section>
+				<section>
+					<h2>SCORM&trade; - Common data fields</h2>
+					<ul>
+						<li class="fragment"><code>cmi.core.lesson_status</code></li>
+						<li class="fragment"><code>cmi.suspend_data</code></li>
+						<li class="fragment"><code>cmi.core.lesson_location</code></li>
+						<li class="fragment"><code>cmi.core.score.raw</code></li>
+						<li class="fragment"><code>cmi.core.session_time</code></li>
+						<li class="fragment"><code>cmi.interactions</code></li>
+					</ul>
+					<aside class="notes"></aside>
+				</section>
+				<section>
+					<h2>SCORM&trade; in Adapt: The Basics</h2>
+					<p class="fragment">Files in the spoor extension</p>
+					<p class="fragment">The main settings - <code>config.json</code></p>
+					<p class="fragment">Bookmarking - <code>course.json</code></p>
+					<p class="fragment">Using tracking ids</code></p>
+					<p class="fragment">Mandatory vs. optional content</code></p>
+					<p class="fragment">Multilanguage</code></p>
+					<aside class="notes"></aside>
+				</section>
+				<section>
+					<h2>SCORM&trade; in Adapt: In more depth</h2>
+					<p class="fragment">Advanded settings in <code>config.json</code></p>
+					<p class="fragment">The 'test harness'</p>
+					<p class="fragment">Debugging</p>
+					<aside class="notes"></aside>
+				</section>
+				<section>
+					<h2>The Future: xAPI</h2>
+					<p class="fragment">What is xAPI?</code></p>
+					<p class="fragment">What challenges does it present?</p>
+					<p class="fragment">Our plans for xAPI</p>
+					<aside class="notes"></aside>
+				</section>
+				
+				<section>
+					<h1>THE END</h1>
+					<small>Any questions?</small>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
